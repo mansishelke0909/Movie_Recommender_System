@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Movie Recommender System</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>🎥 Movie Recommender</h1>
+    </header>
+
+    <main>
+        <!-- Input Section -->
+        <section class="input-section">
+            <h2>Find Your Next Favourite Movie 🍿</h2>
+            <form action="/recommend" method="POST">
+                <select name="movie" required>
+                    <option value="">-- Select a Movie --</option>
+                    {% for m in movie_list %}
+                    <option value="{{ m }}" {% if m==selected_movie %}selected{% endif %}>{{ m }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Get Recommendations</button>
+            </form>
+        </section>
+
+        <!-- Recommendations Section -->
+        {% if recommendations %}
+        <section class="results-section">
+            <h2>Recommended for "{{ selected_movie }}"</h2>
+            <div class="movie-grid">
+                {% for rec, poster_url in recommendations %}
+                <div class="movie-card">
+                    <div class="poster" style="background-image: url('{{ poster_url }}');"></div>
+                    <h3>{{ rec }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer>
+        <h3>Thank You ❤️</h3>
+    </footer>
+</body>
+
+</html>
